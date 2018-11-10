@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="css/font-icon.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   <script src="../stdlib-workspace/isonlaxman/search/functions/__main__.js"></script>
+  <script src="../keys.js"></script>
 </head>
 
 <body>
@@ -155,8 +156,6 @@
   <script>
     $(document).ready(function () {
 
-      var stripe = require("stripe")("sk_test_SsK1SBKye2r1ROLw0KwieHmn");
-
       $('form').submit(false);
 
       // If the user pressed enter on the search
@@ -181,20 +180,19 @@
         $('form').addClass('permahover');
       })
 
+    });
+
+    $(document).ready(function () {
       // On donate button press
       $('donate-button').on('click', function () {
-        const charge = stripe.charges.create({
-          amount: 999,
-          currency: 'usd',
-          source: 'tok_visa',
-          receipt_email: 'inos1199@gmail.com',
+        console.log("HERE");
+        lib.isonlaxman.donate['@dev'](keys.stripe.secret, function (charge) {
+          console.log(charge);
         });
-
-        console.log(charge);
       });
-
     });
   </script>
+
 </body>
 
 </html>

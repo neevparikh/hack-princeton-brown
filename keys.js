@@ -1,6 +1,6 @@
-export default {
+var keys = {
     stripe: {
-        publishable: 'pk_test_pPSDPhP3a9L1t545BCGfY5mW', 
+        publishable: 'pk_test_pPSDPhP3a9L1t545BCGfY5mW',
         secret: 'sk_test_SsK1SBKye2r1ROLw0KwieHmn'
     }
 }

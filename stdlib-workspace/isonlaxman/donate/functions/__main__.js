@@ -1,10 +1,24 @@
+var stripe = require("stripe");
+
 /**
 * A basic Hello World function
-* @param {string} name Who you're saying hello to
+* @param {string} secret_key Who you're saying hello to
 * @returns {string}
 */
-module.exports = (name = 'world', context, callback) => {
+module.exports = (secret_key, context, callback) => {
+  log("TAKE 2");
 
-  callback(null, `hello ${name}`);
+  stripe = stripe(secret_key);
+
+  log("TAKE 3");
+  
+  const charge = stripe.charges.create({
+    amount: 999,
+    currency: 'usd',
+    source: 'tok_visa',
+    receipt_email: 'inos1199@gmail.com',
+  });
+
+  callback(null, charge);
 
 };
