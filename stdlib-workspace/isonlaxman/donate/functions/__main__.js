@@ -3,9 +3,10 @@ var lib = require("../../../../website/lib");
 
 /**
 * A basic Hello World function
+* @param {string} city Who you're saying hello to
 * @returns {string}
 */
-module.exports = (context, callback) => {
+module.exports = (form_data, context, callback) => {
   const charge = stripe.charges.create({
     amount: 999,
     currency: 'usd',
