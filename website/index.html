@@ -59,11 +59,11 @@
     </div>
 
 
-    <div class="container">
+    <!-- <div class="container">
       <div class=".col-md-4">
         <div id="map"></div>
       </div>
-    </div>
+    </div> -->
 
   </section>
 
@@ -231,26 +231,27 @@
           });
         }
       });
-      
+
 
       // Or pressed the search button
-      var search_bar = document.getElementById('bar');
+      // var search_bar = document.getElementById('bar');
 
-      search_bar.addEventListener('click', function(e) {
-        e.preventDefault();
-        var query = $('#bar').val();
-        lib.isonlaxman.search(query, function(results) {
-          console.log(results);
-        });
-      });
+      // search_bar.addEventListener('click', function (e) {
+      //   e.preventDefault();
+      //   var query = $('#bar').val();
+      //   lib.isonlaxman.search['@dev'](query, function (results) {
+      //     console.log(results);
+      //   });
+      // });
 
       var submit_search = document.getElementById('submit-button');
 
-      submit_search.addEventListener('click', function(e) {
+      submit_search.addEventListener('click', function (e) {
         e.preventDefault();
         var query = $('#bar').val();
         console.log("QUERY", query);
-        lib.isonlaxman.search(query, function(results) {
+
+        lib.isonlaxman.search['@dev'](query, function (err, results) {
           console.log(results);
         });
       });
@@ -259,8 +260,8 @@
       $('form').one('mouseover', function () {
         $('form').addClass('permahover');
       })
-      
-        //pressing submit for zipcode
+
+      //pressing submit for zipcode
       //   $('#search-form').addEventListener('submit', function(event) {
       //   event.preventDefault();
       //   var query = $('#bar').val();
@@ -278,7 +279,7 @@
 
         // Submit the form
         // form.submit();
-        
+
       }
     });
   </script>
