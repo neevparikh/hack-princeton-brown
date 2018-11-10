@@ -400,7 +400,7 @@ form {
     border: 4px solid white;
     padding: 5px;
     margin-top: 5%;
-    margin-bottom: 5%;
+    margin-bottom: 10%;
 }
 
 input {
@@ -516,7 +516,7 @@ form:hover .fa {
     -webkit-box-sizing: content-box;
     -moz-box-sizing: content-box;
     box-sizing: content-box;
-    width: 60px;
+    width: 110px;
     height: 30px;
     padding: 10px 20px;
     border: 1px solid #000000;
@@ -541,6 +541,8 @@ form:hover .fa {
     background-color: #000000;
     color: #ffffff;
 }
+
+
 
 /* ------------------------------------------------------------------------------
 	 Services
