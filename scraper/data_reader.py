@@ -30,8 +30,30 @@ def add_income_features():
         #print(income_df)
 
         income_df = income_df [['STATE','zipcode','Number of Returns','Number of Exemptions','NUMDEP','ELDERLY','Salaries and wages amount']]
+
+        compressed_income_df = pandas.DataFrame ()
+
+        czipcode = 0
+        
+        # for czip in income_df['zipcode']:
+        #         if (czipcode != czip):
+        #                 czipcode = czip        
+        #                 print(income_df[income_df['zipcode'] == czip])
+        
+        
+        income_df.groupby('zipcode').agg('sum')
+
+                        
+                                
+                        
+ 
+
+
+        print(income_df[income_df['zipcode'] == 7450].sum())
         
         income_df.to_csv ('modified_zip_income.csv', index = False)
+        
+        
         
 
         #print (incident_df)
