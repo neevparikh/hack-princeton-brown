@@ -21,11 +21,6 @@
   <script src="./lib.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   <script src="https://js.stripe.com/v3/"></script>
-
-  <!-- <script src="../keys.js"></script> -->
-  <!-- <script src="../stdlib-workspace/isonlaxman/search/functions/__main__.js"></script>
-  <script src="../stdlib-workspace/isonlaxman/donate/functions/__main__.js"></script>
-  <script src="../stdlib-workspace/isonlaxman/firearms/functions/__main__.js"></script> -->
 </head>
 
 <body>
@@ -213,6 +208,8 @@
     });
   </script>
 
+
+  <!-- Load the Stripe element -->
   <script>
     $(document).ready(function () {
       var stripe = Stripe('pk_test_pPSDPhP3a9L1t545BCGfY5mW');
@@ -225,7 +222,6 @@
       var style = {
         base: {
           color: '#32325d',
-          lineHeight: '18px',
           fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
           fontSmoothing: 'antialiased',
           fontSize: '16px',
@@ -247,7 +243,7 @@
 
       // Handle real-time validation errors from the card Element.
       card.addEventListener('change', function (event) {
-        console.log("ERROR", event);
+        // console.log("ERROR", event);
         var displayError = document.getElementById('card-errors');
         if (event.error) {
           displayError.textContent = event.error.message;
@@ -259,7 +255,7 @@
       // Handle form submission.
       var form = document.getElementById('payment-form');
       form.addEventListener('submit', function (event) {
-        console.log("FORM LISTENER", event);
+        // console.log("FORM LISTENER", event);
         event.preventDefault();
 
         stripe.createToken(card).then(function (result) {
@@ -277,7 +273,7 @@
       // Submit the form with the token ID.
       function stripeTokenHandler(token) {
         // Insert the token ID into the form so it gets submitted to the server
-        console.log("HANDLER");
+        console.log("HANDLER", form);
         var form = document.getElementById('payment-form');
         var hiddenInput = document.createElement('input');
 
