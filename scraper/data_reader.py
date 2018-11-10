@@ -6,7 +6,7 @@ import csv
 def rename_files ():
     for csv_file_name in os.listdir("."):
         os.rename(csv_file_name, csv_file_name.replace(".","_"))
-        print ('stripped!')
+        print ('stripped!'),''
 
 
 def merge_data ():
@@ -27,8 +27,11 @@ def add_income_features():
         zip_code_look_up = pandas.read_csv('free-zipcode-database.csv', error_bad_lines = False)
         zip_code_look_up = zip_code_look_up[['Zipcode', 'LocationText', 'Lat', 'Long']].dropna()
         zip_code_look_up['City'], zip_code_look_up['State Code'] = zip_code_look_up['LocationText'].str.split(',', 1).str
-        print(income_df)
+        #print(income_df)
 
+        income_df = income_df [['STATE','zipcode','Number of Returns','Number of Exemptions','NUMDEP','ELDERLY','Salaries and wages amount']]
+        
+        income_df.to_csv ('modified_zip_income.csv', index = False)
         
 
         #print (incident_df)
