@@ -115,8 +115,8 @@ def get_time_features(dates):
 
 def create_train():
     incident_df = pd.read_csv("gun_data.csv", names=["date", "city", "state", "injured", "dead"])
-    spat_feat = get_spat_features(incident_df["city"].head(50), incident_df["state"].head(50))
-    time_feat = get_time_features(incident_df["date"].head(50))
+    spat_feat = get_spat_features(incident_df["city"].head(5000), incident_df["state"].head(5000))
+    time_feat = get_time_features(incident_df["date"].head(5000))
     res_df = pd.concat([spat_feat, time_feat], axis=1)
     res_df.to_csv("train_feat_df.csv", index=False)
 
