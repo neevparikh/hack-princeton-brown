@@ -27,39 +27,10 @@ def add_income_features():
         zip_code_look_up = pandas.read_csv('free-zipcode-database.csv', error_bad_lines = False)
         zip_code_look_up = zip_code_look_up[['Zipcode', 'LocationText', 'Lat', 'Long']].dropna()
         zip_code_look_up['City'], zip_code_look_up['State Code'] = zip_code_look_up['LocationText'].str.split(',', 1).str
-        #print(income_df)
 
         income_df = income_df [['STATE','zipcode','Number of Returns','Number of Exemptions','NUMDEP','ELDERLY','Salaries and wages amount']]
-
-        compressed_income_df = pandas.DataFrame ()
-
-        czipcode = 0
-        
-        # for czip in income_df['zipcode']:
-        #         if (czipcode != czip):
-        #                 czipcode = czip        
-        #                 print(income_df[income_df['zipcode'] == czip])
-        
-        
-        income_df.groupby('zipcode').agg('sum')
-
-                        
-                                
-                        
- 
-
-
-        print(income_df[income_df['zipcode'] == 7450].sum())
-        
+        compressed_income_df = income_df.groupby("zipcode").agg('sum')        
         income_df.to_csv ('modified_zip_income.csv', index = False)
         
-        
-        
-
-        #print (incident_df)
-
-
-
-
 add_income_features()
 
