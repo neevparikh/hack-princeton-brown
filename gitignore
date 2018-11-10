@@ -108,4 +108,4 @@ venv.bak/
 .mypy_cache/
 
 /keys.js
-**/node_modules
+**/node_modules/
