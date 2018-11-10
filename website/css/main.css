@@ -400,6 +400,7 @@ form {
     border: 4px solid white;
     padding: 5px;
     margin-top: 5%;
+    margin-bottom: 5%;
 }
 
 input {
@@ -459,7 +460,7 @@ form:hover .fa {
 /* Payment */
 
 .StripeElement {
-    background-color: white;
+    background-color:white;
     height: 40px;
     padding: 10px 12px;
     border-radius: 4px;
