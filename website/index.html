@@ -231,17 +231,42 @@
           });
         }
       });
+      
 
       // Or pressed the search button
-      $("#submit-button").on('click', function () {
-        $('form').submit();
-        return false;
+      var search_bar = document.getElementById('bar');
+
+      search_bar.addEventListener('click', function(e) {
+        e.preventDefault();
+        var query = $('#bar').val();
+        lib.isonlaxman.search(query, function(results) {
+          console.log(results);
+        });
+      });
+
+      var submit_search = document.getElementById('submit-button');
+
+      submit_search.addEventListener('click', function(e) {
+        e.preventDefault();
+        var query = $('#bar').val();
+        console.log("QUERY", query);
+        lib.isonlaxman.search(query, function(results) {
+          console.log(results);
+        });
       });
 
       // On hover on bar
       $('form').one('mouseover', function () {
         $('form').addClass('permahover');
       })
+      
+        //pressing submit for zipcode
+      //   $('#search-form').addEventListener('submit', function(event) {
+      //   event.preventDefault();
+      //   var query = $('#bar').val();
+      //   lib.isonlaxman.search(query);
+      // // })
+      // });
 
       // Submit the form with the token ID.
       function stripeTokenHandler(token) {
@@ -250,6 +275,10 @@
         lib.isonlaxman.donate['@dev'](token.id, function () {
           $('#pay-button').html('Thanks');
         });
+
+        // Submit the form
+        // form.submit();
+        
       }
     });
   </script>
