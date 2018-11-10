@@ -1,17 +1,11 @@
-var stripe = require("stripe");
+var stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+var lib = require("../../../../website/lib");
 
 /**
 * A basic Hello World function
-* @param {string} secret_key Who you're saying hello to
 * @returns {string}
 */
-module.exports = (secret_key, context, callback) => {
-  log("TAKE 2");
-
-  stripe = stripe(secret_key);
-
-  log("TAKE 3");
-  
+module.exports = (context, callback) => {
   const charge = stripe.charges.create({
     amount: 999,
     currency: 'usd',
