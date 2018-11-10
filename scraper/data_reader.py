@@ -30,7 +30,7 @@ def add_income_features():
 
         income_df = income_df [['STATE','zipcode','Number of Returns','Number of Exemptions','NUMDEP','ELDERLY','Salaries and wages amount']]
         compressed_income_df = income_df.groupby("zipcode").agg('sum')        
-        income_df.to_csv ('modified_zip_income.csv', index = False)
+        compressed_income_df.to_csv ('compressed_df.csv', index = False)
         
 add_income_features()
 
