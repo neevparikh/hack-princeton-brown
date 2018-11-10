@@ -1,19 +1,18 @@
-var stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
-var lib = require("../../../../website/lib");
+// var stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 /**
 * A basic Hello World function
-* @param {string} form_data Who you're saying hello to
+* @param {string} token
 * @returns {string}
 */
-module.exports = (form_data, context, callback) => {
+module.exports = (token, context, callback) => {
+
   const charge = stripe.charges.create({
-    amount: 999,
+    amount: 25,
     currency: 'usd',
-    source: 'tok_visa',
+    source: token,
     receipt_email: 'inos1199@gmail.com',
   });
 
   callback(null, charge);
-
 };

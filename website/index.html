@@ -105,7 +105,7 @@
     </div>
   </section>
   <!-- payment section -->
-  <form action="" method="post" id="payment-form">
+  <form method="post" id="payment-form">
     <div class="form-row">
       <label for="card-element" style="margin-left: 42%">
         Credit or debit card
@@ -118,13 +118,12 @@
       <div id="card-errors" role="alert"></div>
     </div>
 
-    <button class='donate-button'>Pay $25</button>
+    <button id='pay-button' class='donate-button'>Donate $25</button>
   </form>
 
 
-
   <!-- Footer section -->
-  <footer class="footer" id="footer">
+  <!-- <footer class="footer" id="footer">
     <div class="footer-top section">
       <div class="container">
         <div class="row">
@@ -157,10 +156,10 @@
           </div>
         </div>
       </div>
-    </div>
-    <!-- footer top -->
+    </div> -->
+  <!-- footer top -->
 
-  </footer>
+  <!-- </footer> -->
   <!-- Footer section -->
   <!-- JS FILES -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -170,51 +169,6 @@
   <script src="js/retina.min.js"></script>
   <script src="js/modernizr.js"></script>
   <script src="js/main.js"></script>
-
-  <script>
-    $(document).ready(function () {
-
-      $('form').submit(false);
-      $('#payment-form').fadeOut(0);
-      $('#payment-form').addClass('permahover');
-
-      $('.donate-button').on('click', function () {
-        if (!$(this).parent().is('#payment-form')) {
-          $('#payment-form').fadeToggle(1000);
-        }
-      });
-
-      // If the user pressed enter on the search
-      $('#bar').keypress(function (e) {
-        if (e.which == 13) {
-          lib.isonlaxman.search($('#bar').val(), function (data) {
-            var as_json = JSON.parse(data);
-
-            // Someone do the map thing 
-          });
-        }
-      });
-
-      // Or pressed the search button
-      $("#submit-button").on('click', function () {
-        $('form').submit();
-        return false;
-      });
-
-      // On hover on bar
-      $('form').one('mouseover', function () {
-        $('form').addClass('permahover');
-      })
-
-      // On donate button press
-      $('.donate-button').on('click', function () {
-        console.log("CLICK");
-        // lib.isonlaxman.donate['@dev'](function (charge) {
-        //   console.log(charge);
-        // });
-      });
-    });
-  </script>
 
 
   <!-- Load the Stripe element -->
@@ -251,7 +205,6 @@
 
       // Handle real-time validation errors from the card Element.
       card.addEventListener('change', function (event) {
-        // console.log("ERROR", event);
         var displayError = document.getElementById('card-errors');
         if (event.error) {
           displayError.textContent = event.error.message;
@@ -264,37 +217,66 @@
       var form = document.getElementById('payment-form');
 
       form.addEventListener('submit', function (event) {
-        // console.log("FORM LISTENER", event);
         event.preventDefault();
 
         stripe.createToken(card).then(function (result) {
           if (result.error) {
+
             // Inform the user if there was an error.
             var errorElement = document.getElementById('card-errors');
             errorElement.textContent = result.error.message;
           } else {
+
             // Send the token to your server.
             stripeTokenHandler(result.token);
           }
         });
       });
 
+      // $('form').submit(false);
+      $('#payment-form').fadeOut(0);
+      $('#payment-form').addClass('permahover');
+
+      $('.donate-button').on('click', function () {
+        if (!$(this).parent().is('#payment-form')) {
+          $('#payment-form').fadeToggle(50);
+        }
+      });
+
+      // If the user pressed enter on the search
+      $('#bar').keypress(function (e) {
+        if (e.which == 13) {
+          lib.isonlaxman.search($('#bar').val(), function (data) {
+            var as_json = JSON.parse(data);
+
+            // Someone do the map thing 
+          });
+        }
+      });
+
+      // Or pressed the search button
+      $("#submit-button").on('click', function () {
+        $('form').submit();
+        return false;
+      });
+
+      // On hover on bar
+      $('form').one('mouseover', function () {
+        $('form').addClass('permahover');
+      })
+
       // Submit the form with the token ID.
       function stripeTokenHandler(token) {
         // Insert the token ID into the form so it gets submitted to the server
-        var form = document.getElementById('payment-form');
         var hiddenInput = document.createElement('input');
-
-        // console.log("HANDLER", $('#payment-form').serialize());
-
-        hiddenInput.setAttribute('type', 'hidden');
-        hiddenInput.setAttribute('name', 'stripeToken');
-        hiddenInput.setAttribute('value', token.id);
-        form.appendChild(hiddenInput);
+        lib.isonlaxman.donate['@dev'](token.id, function () {
+          $('#pay-button').html('Thanks');
+        });
 
         // Submit the form
-        form.submit();
+        // form.submit();
       }
+
     });
   </script>
 
