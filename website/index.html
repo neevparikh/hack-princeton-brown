@@ -107,7 +107,7 @@
   <!-- payment section -->
   <form action="" method="post" id="payment-form">
     <div class="form-row">
-      <label for="card-element">
+      <label for="card-element" style="margin-left: 42%">
         Credit or debit card
       </label>
       <div id="card-element">
@@ -117,9 +117,8 @@
       <!-- Used to display form errors. -->
       <div id="card-errors" role="alert"></div>
     </div>
-    <input type="button" class="donate-button" value="Submit Payment" />
 
-    <button class='donate-button' >Pay 25</button>
+    <button class='donate-button'>Pay $25</button>
   </form>
 
 
@@ -176,6 +175,14 @@
     $(document).ready(function () {
 
       $('form').submit(false);
+      $('#payment-form').fadeOut(0);
+      $('#payment-form').addClass('permahover');
+
+      $('.donate-button').on('click', function () {
+        if (!$(this).parent().is('#payment-form')) {
+          $('#payment-form').fadeToggle(1000);
+        }
+      });
 
       // If the user pressed enter on the search
       $('#bar').keypress(function (e) {
