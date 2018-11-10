@@ -155,6 +155,8 @@
   <script>
     $(document).ready(function () {
 
+      var stripe = require("stripe")("sk_test_SsK1SBKye2r1ROLw0KwieHmn");
+
       $('form').submit(false);
 
       // If the user pressed enter on the search
@@ -178,6 +180,18 @@
       $('form').one('mouseover', function () {
         $('form').addClass('permahover');
       })
+
+      // On donate button press
+      $('donate-button').on('click', function () {
+        const charge = stripe.charges.create({
+          amount: 999,
+          currency: 'usd',
+          source: 'tok_visa',
+          receipt_email: 'inos1199@gmail.com',
+        });
+
+        console.log(charge);
+      });
 
     });
   </script>
