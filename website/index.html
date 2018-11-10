@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="css/animate.min.css">
   <link rel="stylesheet" href="css/font-icon.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <script src="../stdlib-workspace/isonlaxman/search/functions/__main__.js"></script>
 </head>
 
 <body>
@@ -54,7 +55,7 @@
           <form id="search-form" action="">
             <input id="bar" type="search" placeholder="Enter a city to map the heat" name="query" autofocus>
             <i class="fa fa-search">
-              <input type="submit" value="" placeholder="" />
+              <input id="submit-button" type="submit" value="" placeholder="" />
             </i>
           </form>
         </div>
@@ -75,14 +76,12 @@
               </div>
               <div class="col-md-6">
                 <blockquote>
-                  <h1>We create Awesome Branding</h1>
-                  <p>Susan Sims, Interaction Designer at XYZCras mattis consectetur purus sit amet fermentum. Donec sed odio
-                    dui. Aenean lacinia bibendum nulla sed consectetur.Cras mattis consectetur purus sit amet fermentum.Interaction
-                    Designer at XYZCras mattis consectetur purus sit amet fermentum. Donec sed odio dui. Aenean lacinia bibendum
-                    nulla sed consectetur.Cras mattis consectetur purus sit amet fermentum. </p>
-                  <p>Susan Sims, Interaction Designer at XYZCras mattis consectetur purus sit amet fermentum. Donec sed odio
-                    dui. Aenean lacinia bibendum nulla sed consectetur.Cras mattis consectetur purus sit amet fermentum.
-                  </p>
+                  <h1>Support the families</h1>
+                  <p>There are atleast a thousand cases of mass shootings per year in the US alone. This problem is only
+                    growing, and the families are not taking it an easier. Take initiative and support this cause by dinating
+                    to the families of victims who were just unlucky to be a part of such inhumane acts. </p>
+                  <p>We accept donations for the top charities that are doing their best to stop gun violence. </p>
+                  <input type="button" class="donate-button" value="Donate" />
                 </blockquote>
               </div>
             </li>
@@ -92,14 +91,10 @@
               </div>
               <div class="col-md-6">
                 <blockquote>
-                  <h1>We create Digital Experience </h1>
-                  <p>Susan Sims, Interaction Designer at XYZCras mattis consectetur purus sit amet fermentum. Donec sed odio
-                    dui. Aenean lacinia bibendum nulla sed consectetur.Cras mattis consectetur purus sit amet fermentum.Interaction
-                    Designer at XYZCras mattis consectetur purus sit amet fermentum. Donec sed odio dui. Aenean lacinia bibendum
-                    nulla sed consectetur.Cras mattis consectetur purus sit amet fermentum. </p>
-                  <p>Susan Sims, Interaction Designer at XYZCras mattis consectetur purus sit amet fermentum. Donec sed odio
-                    dui. Aenean lacinia bibendum nulla sed consectetur.Cras mattis consectetur purus sit amet fermentum.
-                  </p>
+                  <h1>Make the cities better </h1>
+                  <p>Donate to the cities we predict to be the most prone to shootings. Again, these payments are completely
+                    secure and directly go to legislature/charity organizations that plan to make the world a better place</p>
+                  <input type="button" class="donate-button" value="Donate" />
                 </blockquote>
               </div>
             </li>
@@ -156,6 +151,36 @@
   <script src="js/retina.min.js"></script>
   <script src="js/modernizr.js"></script>
   <script src="js/main.js"></script>
+
+  <script>
+    $(document).ready(function () {
+
+      $('form').submit(false);
+
+      // If the user pressed enter on the search
+      $('#bar').keypress(function (e) {
+        if (e.which == 13) {
+          lib.isonlaxman.search($('#bar').val(), function (data) {
+            var as_json = JSON.parse(data);
+
+            // Someone do the map thing 
+          });
+        }
+      });
+
+      // Or pressed the search button
+      $("#submit-button").on('click', function () {
+        $('form').submit();
+        return false;
+      });
+
+      // On hover on bar
+      $('form').one('mouseover', function () {
+        $('form').addClass('permahover');
+      })
+
+    });
+  </script>
 </body>
 
 </html>
