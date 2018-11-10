@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "datamaps": "^0.5.9",
     "request": "^2.88.0",
     "stripe": "^6.14.0"
   }

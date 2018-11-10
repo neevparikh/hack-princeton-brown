@@ -26,23 +26,18 @@
 <body>
   <!-- header section -->
   <section class="banner" role="banner">
+
     <!--header navigation -->
     <header id="header">
       <div class="header-content clearfix"> <a class="logo" href="#"><img src="images/logo.png" alt=""></a>
         <nav class="navigation" role="navigation">
-          <!-- <ul class="primary-nav">
-          <li><a href="#intro">Intro</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#works">Works</a></li>
-          <li><a href="#teams">Our Team</a></li> -->
-          <li><a href="#intro">How it works</a></li>
-          <li><a href="#footer">Contact</a></li>
+          <li><a href="#intro">Support Us</a></li>
           </ul>
         </nav>
         <a href="#" class="nav-toggle">Menu<span></span></a> </div>
     </header>
-    <!--header navigation -->
-    <!-- banner text -->
+
+    <!-- Main page -->
     <div class="container">
       <div class="col-md-10 col-md-offset-1">
         <div class="banner-text text-center">
@@ -60,12 +55,33 @@
             </i>
           </form>
         </div>
-        <!-- banner text -->
       </div>
     </div>
+
+
+    <div class="container">
+      <div class=".col-md-4">
+        <div id="map"></div>
+      </div>
+    </div>
+
   </section>
-  <!-- header section -->
-  <!-- about section -->
+
+  <!-- Include the dependencies for this -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+
+  <script src="../node_modules/datamaps/dist/datamaps.usa.min.js"></script>
+
+  <!-- Write the script for the map -->
+  <script>
+    var map = new Datamap({
+      element: document.getElementById('map'),
+      scope: 'usa'
+    });
+  </script>
+
+  <!-- Support Section -->
   <section id="intro" class="section intro no-padding">
     <div class="container-fluid">
       <div class="row no-gutter">
@@ -104,6 +120,7 @@
       </div>
     </div>
   </section>
+
   <!-- payment section -->
   <form method="post" id="payment-form">
     <div class="form-row">
@@ -121,47 +138,7 @@
     <button id='pay-button' class='donate-button'>Donate $25</button>
   </form>
 
-
-  <!-- Footer section -->
-  <!-- <footer class="footer" id="footer">
-    <div class="footer-top section">
-      <div class="container">
-        <div class="row">
-          <div class="footer-col col-md-6">
-            <h5>Our Office Location</h5>
-            <p>Collins Street West Victoria 8007 Australia.<br> 1800 1234 56789 / 98532100987<br> support@flosix.com
-            </p>
-            <p>Copyright © 2015 Flosix Inc. All Rights Reserved. Made with <i class="fa fa-heart pulse"></i> by <a href="http://www.designstub.com/">Designstub</a></p>
-          </div>
-          <div class="footer-col col-md-3">
-            <h5>Services We Offer</h5>
-            <p>
-              <ul>
-                <li><a href="#">Digital Strategy</a></li>
-                <li><a href="#">Websites</a></li>
-                <li><a href="#">Videography</a></li>
-                <li><a href="#">Social Media</a></li>
-                <li><a href="#">User Experience</a></li>
-              </ul>
-            </p>
-          </div>
-          <div class="footer-col col-md-3">
-            <h5>Share with Love</h5>
-            <ul class="footer-share">
-              <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-              <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-              <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-              <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div> -->
-  <!-- footer top -->
-
-  <!-- </footer> -->
-  <!-- Footer section -->
-  <!-- JS FILES -->
+  <!-- Necessary scripts -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/jquery.flexslider-min.js"></script>
@@ -171,16 +148,17 @@
   <script src="js/main.js"></script>
 
 
-  <!-- Load the Stripe element -->
+  <!-- Custom Scripts -->
   <script>
     $(document).ready(function () {
+
+      // Iniitialize the Stripe API with the publically available key
       var stripe = Stripe('pk_test_pPSDPhP3a9L1t545BCGfY5mW');
 
       // Create an instance of Elements.
       var elements = stripe.elements();
 
       // Custom styling can be passed to options when creating an Element.
-      // (Note that this demo uses a wider set of styles than the guide below.)
       var style = {
         base: {
           color: '#32325d',
@@ -272,11 +250,7 @@
         lib.isonlaxman.donate['@dev'](token.id, function () {
           $('#pay-button').html('Thanks');
         });
-
-        // Submit the form
-        // form.submit();
       }
-
     });
   </script>
 
