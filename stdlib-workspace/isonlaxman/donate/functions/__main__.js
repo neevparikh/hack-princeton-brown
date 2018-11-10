@@ -5,14 +5,14 @@
 * @param {string} token
 * @returns {string}
 */
-module.exports = (token, context, callback) => {
+module.exports = async (token, context) => {
 
-  const charge = stripe.charges.create({
+  const charge = await stripe.charges.create({
     amount: 25,
     currency: 'usd',
     source: token,
     receipt_email: 'inos1199@gmail.com',
   });
 
-  callback(null, charge);
+  return charge;
 };
