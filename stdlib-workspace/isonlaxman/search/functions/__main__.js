@@ -1,3 +1,5 @@
+const PythonShell = require('python-shell');
+
 /**
 * A basic Hello World function
 * @param {string} city Who you're saying hello to
@@ -11,6 +13,7 @@ module.exports = (city = '', context, callback) => {
     }));
   } else {
     // Write code here to get the data
-    callback(null, `hello ${name}`);
+    // Use ajax requests to execute python requests? 
+    callback(null);
   }
 };
