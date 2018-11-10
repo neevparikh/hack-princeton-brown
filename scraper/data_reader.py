@@ -21,6 +21,20 @@ def merge_data ():
         
         total_file.to_csv('gun_data.csv', index = False)
         
-merge_data()
+def add_income_features():
+        income_df = pandas.read_csv ('zip_income.csv', error_bad_lines=False, encoding = "ISO-8859-1")
+        incident_df = pandas.read_csv ('gun_data.csv')
+        zip_code_look_up = pandas.read_csv('free-zipcode-database.csv', error_bad_lines = False)
+        zip_code_look_up = zip_code_look_up[['Zipcode', 'LocationText', 'Lat', 'Long']].dropna()
+        zip_code_look_up['City'], zip_code_look_up['State Code'] = zip_code_look_up['LocationText'].str.split(',', 1).str
+        print(income_df)
 
+        
+
+        #print (incident_df)
+
+
+
+
+add_income_features()
 

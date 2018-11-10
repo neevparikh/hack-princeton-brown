@@ -100,12 +100,8 @@ venv.bak/
 # mkdocs documentation
 /site
 
-
-#gitignore the csv_files
-/csv_files
-
 # mypy
 .mypy_cache/
 
 /keys.js
-**/node_modules/
+/node_modules/
