@@ -106,7 +106,6 @@ def onehot(pickle_to_read, zip, date):
         model = pickle.load(picker_reader)
 
     result_dict = encoded_dict(zip, date)
-    print(result_dict.keys())
 
     del result_dict["employment_status - Worked Full-time With Earnings"]
     del result_dict["employment_status - Worked Part-time With Earnings"]
@@ -114,12 +113,9 @@ def onehot(pickle_to_read, zip, date):
     del result_dict["educational_attainment_for_population_25_and_over - Bachelor's Degree"]
     del result_dict["population_by_race - Two Or More Races"]
 
-    print(len(result_dict.keys()))
-
     # print(result_dict, len(result_dict))
     X = np.nan_to_num(np.array([list(result_dict.values())]))
     result_prob = model.predict_proba(X)
-    print(result_prob)
     return result_prob
 
 

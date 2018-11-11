@@ -23,7 +23,7 @@ def preprocess_and_train():
 
     t_df = merged[list(merged.columns)[26:68]]
 
-    l = list(merged.columns)[1:25]
+    l = list(merged.columns)[0:25]
     l.extend(list(merged.columns)[69:-1])
 
     s_df = merged[l]
@@ -46,15 +46,14 @@ def preprocess_and_train():
         batch_size="auto"
     )
 
-    print(len(merged.columns))
-
     print("Training...")
+    
     trained_clf = clf.fit(X_train, y_train)
-    print(trained_clf)
     y_prob = clf.predict_proba(X_test)
     y_pred = clf.predict(X_test)
-    print(y_pred, y_test, len(y_pred), len(y_test))
+    
     score = trained_clf.score(X_test, y_test)
+    
     print("Score: ", score)
     print("Pickling...")
     pickle.dump(trained_clf, open("model.pkl", "wb"))
