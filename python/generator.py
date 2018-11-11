@@ -41,7 +41,7 @@ for j in range(5000):
     max_1 = np.argmax(row[26:37])
     max_2 = np.argmax(row[38:68])
 
-    for i in range(26, 68):
+    for i in range(26, 69):
         row[i] = 0
 
     row[max_1+26] = 1
