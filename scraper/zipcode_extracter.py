@@ -11,7 +11,6 @@ def encoded_dict (zipcode, date):
         #keys_to_remove.extend (['timezone', 'area_code_list', 'polygon', 'population_by_age', 'population_by_gender', 'population_by_race', 'head_of_household_by_age'])
         keys_to_include = [
             "population_density",
-            "population_by_age",
             "population_by_gender",
             "population_by_race",
             "median_household_income",
@@ -101,6 +100,7 @@ def encoded_dict (zipcode, date):
         return return_dict
 
 
+order_dict = []
 
 def onehot(pickle_to_read, zip, date):
 
@@ -108,14 +108,12 @@ def onehot(pickle_to_read, zip, date):
         model = pickle.load (picker_reader)
 
     result_dict = encoded_dict (zip, date)
-    x = np.array(result_dict.values())
-    x_scaled = preprocessing.scale (x)
-
-    result_proba = mlp.predict_proba (x_scaled)
-    return result_proba
-
-
+    print(result_dict)
+    X = np.nan_to_num(np.array([list(result_dict.values())]))
+    print(X.shape)
+    result_prob = model.predict_proba (X)
+    return result_prob
 
 
-
-encoded_dict ('07450', '10/21/2018')
+prob = onehot("model.pkl", "94577", "10/20/2019")
+print(prob)

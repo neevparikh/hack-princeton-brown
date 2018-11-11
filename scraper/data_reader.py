@@ -5,7 +5,6 @@ search = uz.SearchEngine(simple_zipcode=False)
 
 spatial_features = [
     "population_density",
-    "population_by_age",
     "population_by_gender",
     "population_by_race",
     "median_household_income",
