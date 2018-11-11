@@ -47,7 +47,7 @@
             crossorigin="anonymous">
 
           <!-- Form for the search -->
-          <form id="search-form" action="">
+          <form id="search-form" action="" autocomplete='off'>
             <input id="bar" type="search" placeholder="Enter a zip code" name="query" autofocus>
             <i class="fa fa-search">
               <input id="submit-button" type="submit" value="" placeholder="" />
@@ -57,7 +57,7 @@
       </div>
      
     </div>
-    <div id="map"  style= "position: absolute; width: 1200px; height: 85vh; left: 8%; margin-top: -20em;"></div>
+    <div id="map"  style= "position: absolute; width: 1200px; height: 85vh; left: 8%; top: 10em;"></div>
   </section>
 
   <!-- Include the dependencies for this -->
@@ -220,6 +220,7 @@ var bubble_map = new Datamap({
       // Handle real-time validation errors from the card Element.
       card.addEventListener('change', function (event) {
         var displayError = document.getElementById('card-errors');
+
         if (event.error) {
           displayError.textContent = event.error.message;
         } else {
@@ -257,29 +258,6 @@ var bubble_map = new Datamap({
         }
       });
 
-      // If the user pressed enter on the search
-      $('#bar').keypress(function (e) {
-        if (e.which == 13) {
-          lib.isonlaxman.search($('#bar').val(), function (data) {
-            var as_json = JSON.parse(data);
-
-            // Someone do the map thing 
-          });
-        }
-      });
-
-
-      // Or pressed the search button
-      // var search_bar = document.getElementById('bar');
-
-      // search_bar.addEventListener('click', function (e) {
-      //   e.preventDefault();
-      //   var query = $('#bar').val();
-      //   lib.isonlaxman.search['@dev'](query, function (results) {
-      //     console.log(results);
-      //   });
-      // });
-
       var submit_search = document.getElementById('submit-button');
 
       submit_search.addEventListener('click', function (e) {
@@ -297,14 +275,6 @@ var bubble_map = new Datamap({
         $('form').addClass('permahover');
       })
 
-      //pressing submit for zipcode
-      //   $('#search-form').addEventListener('submit', function(event) {
-      //   event.preventDefault();
-      //   var query = $('#bar').val();
-      //   lib.isonlaxman.search(query);
-      // // })
-      // });
-
       // Submit the form with the token ID.
       function stripeTokenHandler(token) {
         // Insert the token ID into the form so it gets submitted to the server
@@ -312,9 +282,6 @@ var bubble_map = new Datamap({
         lib.isonlaxman.donate['@dev'](token.id, function () {
           $('#pay-button').html('Thanks');
         });
-
-        // Submit the form
-        // form.submit();
 
       }
     });
