@@ -1,23 +1,23 @@
 from uszipcode import SearchEngine
 
 
+
 def encoded_dict (zipcode, date):
         
         search = SearchEngine(simple_zipcode=False).by_zipcode (zipcode)
 
         #keys_to_remove.extend (['timezone', 'area_code_list', 'polygon', 'population_by_age', 'population_by_gender', 'population_by_race', 'head_of_household_by_age'])
-        keys_to_include = ["population_density",
-                            "population_by_year",
-                            "population_by_age",
-                            "population_by_gender",
-                            "population_by_race",
-                            "families_vs_singles",
-                            "households_with_kids",
-                            "median_household_income",
-                            "employment_status",
-                            "household_income",
-                            "educational_attainment_for_population_25_and_over",
-                            "school_enrollment_age_3_to_17"]
+        keys_to_include = [
+            "population_density",
+            "population_by_age",
+            "population_by_gender",
+            "population_by_race",
+            "median_household_income",
+            "employment_status",
+            "household_income",
+            "educational_attainment_for_population_25_and_over",
+            "school_enrollment_age_3_to_17"
+        ]
 
 
         time_features = [
@@ -63,9 +63,7 @@ def encoded_dict (zipcode, date):
         "day28",
         "day29",
         "day30",
-        "day31",
-        "year"
-        ]
+        "day31"]
         
         return_dict = {}
 
@@ -98,10 +96,7 @@ def encoded_dict (zipcode, date):
             elif (index == int(dates[1])+11):
                 return_dict[time_features[index]] = 1
 
-        return_dict["year"] = int(dates[2])
-
-        
-        print (return_dict)
+        return return_dict
 
 
 encoded_dict ('07450', '10/21/2018')

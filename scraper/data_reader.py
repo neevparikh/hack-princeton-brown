@@ -5,12 +5,9 @@ search = uz.SearchEngine(simple_zipcode=False)
 
 spatial_features = [
     "population_density",
-    "population_by_year",
     "population_by_age",
     "population_by_gender",
     "population_by_race",
-    "families_vs_singles",
-    "households_with_kids",
     "median_household_income",
     "employment_status",
     "household_income",
@@ -104,7 +101,6 @@ def time_features(date):
                 init[k] = year  
     return init
 
-
 def get_time_features(dates):
     df_list = []
     for k, v in dates.iteritems():
@@ -125,28 +121,30 @@ def create_train():
     time_feat = get_time_features(incident_df["date"])
     df = pd.concat([spat_feat, time_feat], axis=1).dropna()
 
-    i = 0
-    pop_y = []
+    # print(df.loc(['2014']))
 
-    while i < len(df.index.get_values()):
-        r = df.iloc[i]
-        y = int(r['year'])
-        pop_y.append(r.loc[valid_years(y)])
-        i += 1
+    # i = 0
+    # pop_y = []
+
+    # while i < len(df.index.get_values()):
+    #     r = df.iloc[i]
+    #     y = int(r['year'])
+    #     pop_y.append(r.loc[valid_years(y)])
+    #     i += 1
     
-    df["population"] = pd.Series(pop_y)
+    df["population"] = df["Male"] + df["Female"]
 
-    del df["2005"]
-    del df["2006"]
-    del df["2007"]
-    del df["2008"]
-    del df["2009"]
-    del df["2010"]
-    del df["2011"]
-    del df["2012"]
-    del df["2013"]
-    del df["2014"]
-    del df["2015"]
+    # del df["2005"]
+    # del df["2006"]
+    # del df["2007"]
+    # del df["2008"]
+    # del df["2009"]
+    # del df["2010"]
+    # del df["2011"]
+    # del df["2012"]
+    # del df["2013"]
+    # del df["2014"]
+    # del df["2015"]
 
     df.to_csv("train_feat_df.csv", index=False)
 
