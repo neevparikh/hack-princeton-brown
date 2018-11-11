@@ -4,7 +4,9 @@
   "description": "",
   "author": "isonlaxman <inos1199@gmail.com>",
   "main": "functions/__main__.js",
-  "dependencies": {},
+  "dependencies": {
+    "python-shell": "^1.0.6"
+  },
   "private": true,
   "stdlib": {
     "build": "faaslang",
