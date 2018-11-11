@@ -5,23 +5,27 @@ from sklearn.neural_network import MLPClassifier as mlc
 from sklearn.model_selection import train_test_split
 import pickle
 
+
 def preprocess_and_train():
     df = pd.read_csv("train_feat_df.csv").dropna()
     del df["Unnamed: 0"]
     del df["Bachelor's Degree"]
+
     df["label"] = pd.Series(np.ones((df["population"].count(),), dtype=int))
 
     fake = pd.read_csv("fakefuck.csv")
     del fake["Unnamed: 0"]
-    fake["label"] = pd.Series(np.zeros((fake["population"].count(),), dtype=int))
+    fake["label"] = pd.Series(
+        np.zeros((fake["population"].count(),), dtype=int))
 
     merged = pd.concat([df, fake], sort=False).reset_index()
     del merged["index"]
 
-    t_df = merged[list(merged.columns)[26:69]]
+    t_df = merged[list(merged.columns)[26:68]]
 
-    l = list(merged.columns)[1:26]
-    l.extend(list(merged.columns)[70:-1])
+    l = list(merged.columns)[1:25]
+    l.extend(list(merged.columns)[69:-1])
+
     s_df = merged[l]
 
     labels = merged["label"]
@@ -31,7 +35,8 @@ def preprocess_and_train():
 
     y = labels.values
 
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=5)
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.30, random_state=5)
 
     clf = mlc(
         hidden_layer_sizes=(10,),
@@ -39,12 +44,16 @@ def preprocess_and_train():
         solver="adam",
         alpha=0.0001,
         batch_size="auto"
-        ) 
+    )
+
+    print(len(merged.columns))
+
     print("Training...")
     trained_clf = clf.fit(X_train, y_train)
+    print(trained_clf)
     y_prob = clf.predict_proba(X_test)
     y_pred = clf.predict(X_test)
-    print(y_pred, y_test)
+    print(y_pred, y_test, len(y_pred), len(y_test))
     score = trained_clf.score(X_test, y_test)
     print("Score: ", score)
     print("Pickling...")

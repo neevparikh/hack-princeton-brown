@@ -1,27 +1,27 @@
 from uszipcode import SearchEngine
-import pickle 
+import pickle
 from sklearn.neural_network import MLPClassifier as mlp
 from sklearn import preprocessing
 import numpy as np
 
-def encoded_dict (zipcode, date):
-        
-        search = SearchEngine(simple_zipcode=False).by_zipcode (zipcode)
 
-        #keys_to_remove.extend (['timezone', 'area_code_list', 'polygon', 'population_by_age', 'population_by_gender', 'population_by_race', 'head_of_household_by_age'])
-        keys_to_include = [
-            "population_density",
-            "population_by_gender",
-            "population_by_race",
-            "median_household_income",
-            "employment_status",
-            "household_income",
-            "educational_attainment_for_population_25_and_over",
-            "school_enrollment_age_3_to_17"
-        ]
+def encoded_dict(zipcode, date):
 
+    search = SearchEngine(simple_zipcode=False).by_zipcode(zipcode)
 
-        time_features = [
+    #keys_to_remove.extend (['timezone', 'area_code_list', 'polygon', 'population_by_age', 'population_by_gender', 'population_by_race', 'head_of_household_by_age'])
+    keys_to_include = [
+        "population_density",
+        "population_by_gender",
+        "population_by_race",
+        "median_household_income",
+        "employment_status",
+        "household_income",
+        "educational_attainment_for_population_25_and_over",
+        "school_enrollment_age_3_to_17"
+    ]
+
+    time_features = [
         "January",
         "February",
         "March",
@@ -65,53 +65,61 @@ def encoded_dict (zipcode, date):
         "day29",
         "day30",
         "day31"]
-        
-        return_dict = {}
 
-        for index, feature in enumerate (search.keys()):
-                if feature in keys_to_include:
-                    #return_dict[str(index) + feature] = search.values()[index]
-                    parent_key = str(search.keys()[index])
-            
-                    #print (search.values()[index])
-                    if type(search.values()[index]) == list:
-                        diction = list((search.values()[index])[0].values())[1]
-                    else:
-                        return_dict [search.keys()[index]] = search.values()[index]
-                        continue
-                    
-                    for each_dict in diction:
-                            combined_key = parent_key + ' - ' + str(each_dict['x'])
-                            return_dict[combined_key] = each_dict['y']
+    return_dict = {}
 
-        
+    for index, feature in enumerate(search.keys()):
+        if feature in keys_to_include:
+            #return_dict[str(index) + feature] = search.values()[index]
+            parent_key = str(search.keys()[index])
 
-        dates = date.split ('/')
-        
+            #print (search.values()[index])
+            if type(search.values()[index]) == list:
+                diction = list((search.values()[index])[0].values())[1]
+            else:
+                return_dict[search.keys()[index]] = search.values()[index]
+                continue
 
-        for index, time in enumerate (time_features):
-            return_dict[time_features[index]] = 0
-        
-            if (index == int (dates[0])-1):
-                return_dict[time_features[index]] = 1
-            elif (index == int(dates[1])+11):
-                return_dict[time_features[index]] = 1
+            for each_dict in diction:
+                combined_key = parent_key + ' - ' + str(each_dict['x'])
+                return_dict[combined_key] = each_dict['y']
 
-        return return_dict
+    dates = date.split('/')
+
+    for index, time in enumerate(time_features):
+        return_dict[time_features[index]] = 0
+
+        if (index == int(dates[0])-1):
+            return_dict[time_features[index]] = 1
+        elif (index == int(dates[1])+11):
+            return_dict[time_features[index]] = 1
+
+    return return_dict
 
 
 order_dict = []
 
+
 def onehot(pickle_to_read, zip, date):
 
-    with open (pickle_to_read, 'rb') as picker_reader:   
-        model = pickle.load (picker_reader)
+    with open(pickle_to_read, 'rb') as picker_reader:
+        model = pickle.load(picker_reader)
 
-    result_dict = encoded_dict (zip, date)
-    print(result_dict)
+    result_dict = encoded_dict(zip, date)
+    print(result_dict.keys())
+
+    del result_dict["employment_status - Worked Full-time With Earnings"]
+    del result_dict["employment_status - Worked Part-time With Earnings"]
+    del result_dict["employment_status - No Earnings"]
+    del result_dict["educational_attainment_for_population_25_and_over - Bachelor's Degree"]
+    del result_dict["population_by_race - Two Or More Races"]
+
+    print(len(result_dict.keys()))
+
+    # print(result_dict, len(result_dict))
     X = np.nan_to_num(np.array([list(result_dict.values())]))
-    print(X.shape)
-    result_prob = model.predict_proba (X)
+    result_prob = model.predict_proba(X)
+    print(result_prob)
     return result_prob
 
 

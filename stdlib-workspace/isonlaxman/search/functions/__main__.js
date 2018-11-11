@@ -24,7 +24,7 @@ module.exports = async (zipcode = '', context) => {
     // args: []
   };
 
-  var result = await PythonShell.run('neural-net.py', options);
+  await PythonShell.run('neural-net.py', options);
   console.log('results: %j', results);
   return JSON.stringify(result);
 }
