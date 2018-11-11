@@ -1,35 +1,30 @@
-// const PythonShell = require('python-shell');
 
 /**
 * A basic Hello World function
 * @param {string} zipcode Who you're saying hello to
 * @returns {string}
 */
-module.exports = (zipcode = '', context, callback) => {
+module.exports = async (zipcode = '', context) => {
+  var { PythonShell } = require('python-shell');
+  console.log("HELLLO");
+  // return "HELLO";
+  // if (zipcode == '') {
+  //   return JSON.stringify({
+  //     status: 400,
+  //     message: null
+  //   });
+  // } else {
+  // Write code here to get the data
+  // Use ajax requests to execute python requests? 
 
-  if (zipcode == '') {
-    callback(null, JSON.stringify({
-      status: 400,
-      message: null
-    }));
-  } else {
-    // Write code here to get the data
-    // Use ajax requests to execute python requests? 
+  let options = {
+    pythonPath: 'C:\\Users\\Laxman\\AppData\\Local\\Programs\\Python\\Python37-32\\python.exe', //replace with own
+    pythonOptions: ['-u'],
+    scriptPath: '../../../../python',
+    // args: []
+  };
 
-    console.log("HERE");
-    callback(null, "HELLO");
-    // let options = {
-    //   pythonPath: 'C:/Users/Laxman/AppData/Local/Programs/Python/Python37-32', //replace with own
-    //   pythonOptions: ['-u'],
-    //   scriptPath: '../../../../python/',
-    //   args: ['zipcode']
-    // };
-
-    // PythonShell.run('./../../../neural-net.py', options, function (err, results) {
-    //   if (err) callback(null, "ERROR" + JSON.stringify(err));
-    //   console.log('results: %j', results);
-    //   callback(null, JSON.stringify(results));
-    // });
-
-  }
-};
+  var result = await PythonShell.run('neural-net.py', options);
+  console.log('results: %j', results);
+  return JSON.stringify(result);
+}
