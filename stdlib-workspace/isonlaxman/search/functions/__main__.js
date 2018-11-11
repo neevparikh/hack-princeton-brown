@@ -2,10 +2,11 @@
 /**
 * A basic Hello World function
 * @param {string} zipcode Who you're saying hello to
+* @param {string} time
 * @returns {string}
 */
-module.exports = async (zipcode = '', context) => {
-  var { PythonShell } = require('python-shell');
+module.exports = (zipcode = '', time = '', context, callback) => {
+  // var { PythonShell } = require('python-shell');
   console.log("HELLLO");
   // return "HELLO";
   // if (zipcode == '') {
@@ -17,14 +18,17 @@ module.exports = async (zipcode = '', context) => {
   // Write code here to get the data
   // Use ajax requests to execute python requests? 
 
-  let options = {
-    pythonPath: 'C:\\Users\\Laxman\\AppData\\Local\\Programs\\Python\\Python37-32\\python.exe', //replace with own
-    pythonOptions: ['-u'],
-    scriptPath: '../../../../python',
-    // args: []
-  };
+  // let options = {
+  //   pythonPath: 'C:\\Users\\Laxman\\AppData\\Local\\Programs\\Python\\Python37-32\\python.exe', //replace with own
+  //   pythonOptions: ['-u'],
+  //   scriptPath: '../../../../scraper',
+  //   // args: []
+  // };
 
-  await PythonShell.run('neural-net.py', options);
-  console.log('results: %j', results);
-  return JSON.stringify(result);
+  // await PythonShell.run('zipcode_extractor.py', options);
+
+  var data = require('./helper.js');
+  data = JSON.parse(data());
+
+  callback(null, data[zipcode][time]);
 }

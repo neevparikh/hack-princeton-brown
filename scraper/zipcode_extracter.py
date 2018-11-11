@@ -118,6 +118,6 @@ def onehot(pickle_to_read, zip, date):
     result_prob = model.predict_proba(X)
     return result_prob
 
-
-prob = onehot("model.pkl", "94577", "10/20/2019")
-print(prob)
+if __name__ == '__main__':
+    prob = onehot("model.pkl", "94577", "10/20/2019")
+    print(prob)

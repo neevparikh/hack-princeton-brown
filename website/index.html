@@ -53,6 +53,8 @@
               <input id="submit-button" type="submit" value="" placeholder="" />
             </i>
           </form>
+
+          <h1 id="probability" style="right: 100px; top: 100px; position:  absolute;" ></h1>
         </div>
       </div>
      
@@ -333,8 +335,12 @@ var bubble_map = new Datamap({
         var query = $('#bar').val();
         console.log("QUERY", query);
 
-        lib.isonlaxman.search['@dev'](query, function (err, results) {
-          console.log(results);
+        split = query.split(" ");
+        console.log(split);
+
+        lib.isonlaxman.search['@dev'](split[0], split[1], function (err, results) {
+          console.log("HERE", results);
+           $('#probability').html(results);
         });
       });
 
