@@ -104,6 +104,4 @@ def encoded_dict (zipcode, date):
         print (return_dict)
 
 
-            
-
 encoded_dict ('07450', '10/21/2018')
