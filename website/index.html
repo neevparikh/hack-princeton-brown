@@ -41,30 +41,23 @@
     <div class="container">
       <div class="col-md-10 col-md-offset-1">
         <div class="banner-text text-center">
-          <h1>FIREARMS</h1>
 
           <!-- Search bar -->
           <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
             crossorigin="anonymous">
 
           <!-- Form for the search -->
-          <form id="search-form" action="">
-            <input id="bar" type="search" placeholder="Enter a city to map the heat" name="query" autofocus>
+          <form id="search-form" action="" autocomplete='off'>
+            <input id="bar" type="search" placeholder="Enter a zip code" name="query" autofocus>
             <i class="fa fa-search">
               <input id="submit-button" type="submit" value="" placeholder="" />
             </i>
           </form>
         </div>
       </div>
+     
     </div>
-
-
-    <div class="container" style= "padding-bottom: 5em">
-      <!-- <div class=".col-md-4"> -->
-        <div id="map"  style= "position: absolute; width: 700px; height: 50vh; left: 25%; margin-top: -8em"></div>
-      <!-- </div> -->
-    </div>
-
+    <div id="map"  style= "position: absolute; width: 1200px; height: 85vh; left: 8%; top: 10em;"></div>
   </section>
 
   <!-- Include the dependencies for this -->
@@ -87,13 +80,14 @@ var bubble_map = new Datamap({
             'CA': 'blue',
             'GA': 'red',
             
-            defaultFill: '#ABDDA4'
+            defaultFill: 'rgba(0, 0, 0, .5)'
         }, 
         data: {
             'CA': {fillKey : 'CA'},
             'GA': {fillKey : 'GA'}
-        }
+        },
     });
+
     data = [{
         name: 'GA',
         radius: 10,
@@ -108,7 +102,10 @@ var bubble_map = new Datamap({
     }
     ];
   
-    bubble_map.labels();
+    bubble_map.labels({
+      labelColor: 'white'
+    });
+    
     bubble_map.bubbles(data);
 
      bubble_map.svg.call(d3.behavior.zoom().
@@ -223,6 +220,7 @@ var bubble_map = new Datamap({
       // Handle real-time validation errors from the card Element.
       card.addEventListener('change', function (event) {
         var displayError = document.getElementById('card-errors');
+
         if (event.error) {
           displayError.textContent = event.error.message;
         } else {
@@ -260,29 +258,6 @@ var bubble_map = new Datamap({
         }
       });
 
-      // If the user pressed enter on the search
-      $('#bar').keypress(function (e) {
-        if (e.which == 13) {
-          lib.isonlaxman.search($('#bar').val(), function (data) {
-            var as_json = JSON.parse(data);
-
-            // Someone do the map thing 
-          });
-        }
-      });
-
-
-      // Or pressed the search button
-      // var search_bar = document.getElementById('bar');
-
-      // search_bar.addEventListener('click', function (e) {
-      //   e.preventDefault();
-      //   var query = $('#bar').val();
-      //   lib.isonlaxman.search['@dev'](query, function (results) {
-      //     console.log(results);
-      //   });
-      // });
-
       var submit_search = document.getElementById('submit-button');
 
       submit_search.addEventListener('click', function (e) {
@@ -300,14 +275,6 @@ var bubble_map = new Datamap({
         $('form').addClass('permahover');
       })
 
-      //pressing submit for zipcode
-      //   $('#search-form').addEventListener('submit', function(event) {
-      //   event.preventDefault();
-      //   var query = $('#bar').val();
-      //   lib.isonlaxman.search(query);
-      // // })
-      // });
-
       // Submit the form with the token ID.
       function stripeTokenHandler(token) {
         // Insert the token ID into the form so it gets submitted to the server
@@ -315,9 +282,6 @@ var bubble_map = new Datamap({
         lib.isonlaxman.donate['@dev'](token.id, function () {
           $('#pay-button').html('Thanks');
         });
-
-        // Submit the form
-        // form.submit();
 
       }
     });
