@@ -74,31 +74,99 @@ var bubble_map = new Datamap({
         scope: 'usa',
         geographyConfig: {
             popupOnHover: false,
-            highlightOnHover: false
+            highlightOnHover: false,
+            borderColor: '#ffb3b3',
+            
+        },
+        bubblesConfig: {
+          borderColor: '#FFFFFF',
+          popupOnHover: true, 
+          animate: true,
+          highlightFillColor: 'red',
         },
         fills: {
-            'CA': 'blue',
-            'GA': 'red',
-            
-            defaultFill: 'rgba(0, 0, 0, .5)'
+            // 'CA': 'blue',
+            // 'GA': 'red',
+            // 'AK': `rgba(${Math.floor(Math.random()*256)},${Math.floor(Math.random()*256)}, ${Math.floor(Math.random()*256)})`,
+            // 'AZ': `rgba(${Math.floor(Math.random()*256)},${Math.floor(Math.random()*256)}, ${Math.floor(Math.random()*256)})`,
+            // 'CO': `rgba(${Math.floor(Math.random()*256)},${Math.floor(Math.random()*256)}, ${Math.floor(Math.random()*256)})`,
+            // 'CT': `rgba(${Math.floor(Math.random()*256)},${Math.floor(Math.random()*256)}, ${Math.floor(Math.random()*256)})`,
+            // 'DE': `rgba(${Math.floor(Math.random()*256)},${Math.floor(Math.random()*256)}, ${Math.floor(Math.random()*256)})`,
+            // 'FL': `rgba(${Math.floor(Math.random()*256)},${Math.floor(Math.random()*256)}, ${Math.floor(Math.random()*256)})`,
+            // 'HI': `rgba(${Math.floor(Math.random()*256)},${Math.floor(Math.random()*256)}, ${Math.floor(Math.random()*256)})`,
+
+
+
+            defaultFill: `rgba(0,0,0,0.5)`
         }, 
         data: {
-            'CA': {fillKey : 'CA'},
-            'GA': {fillKey : 'GA'}
+          
+            // 'CA': {fillKey : 'CA'},
+            // 'GA': {fillKey : 'GA'},
+            // 'AK': {fillKey : 'AK'},
+            // 'AZ': {fillKey : 'AZ'},
+            // 'CO': {fillKey : 'CO'},
+            // 'CT': {fillKey : 'CT'},
+            // 'DE': {fillKey : 'DE'},
+            // 'FL': {fillKey : 'FL'},
+            // 'HI': {fillKey : 'HI'},
         },
     });
 
     data = [{
-        name: 'GA',
+        name: 'Atlanta',
         radius: 10,
         latitude: 32.1656,
         longitude: -82.9001
     },
     {
-        name: 'CA',
-        radius: 30,
-        latitude: 36.7783,
-        longitude: -119.4179
+        name: 'Omaha',
+        radius: 5,
+        latitude: 41.2565,
+        longitude: -95.9345
+    },
+     {
+        name: 'Kansas City',
+        radius: 10,
+        latitude: 39.0997,
+        longitude: -94.5786
+    },
+    {
+        name: 'Compton',
+        radius: 60,
+        latitude: 33.8958,
+        longitude: -118.2201
+    },
+    {
+        name: 'Boulder',
+        radius: 10,
+        latitude: 40.0150,
+        longitude: -105.2705
+    },
+    
+    {
+        name: 'New York',
+        radius: 20,
+        latitude: 40.7128,
+        longitude: -74.0060
+    },
+    {
+        name: 'Selma',
+        radius: 50,
+        latitude: 32.4074,
+        longitude: -87.0211
+    },
+    {
+        name: 'Seattle',
+        radius: 5,
+        latitude: 47.6062,
+        longitude: -122.3321
+    },
+    {
+        name: 'Oregon',
+        radius: 10,
+        latitude: 43.8041,
+        longitude: -120.5542
     }
     ];
   
@@ -130,8 +198,8 @@ var bubble_map = new Datamap({
               <div class="col-md-6">
                 <blockquote>
                   <h1>Support the families</h1>
-                  <p>There are atleast a thousand cases of mass shootings per year in the US alone. This problem is only
-                    growing, and the families are not taking it an easier. Take initiative and support this cause by dinating
+                  <p>There are at least a thousand cases of mass shootings per year in the US alone. This problem is only
+                    growing, and the families are not taking it an easier. Take initiative and support this cause by donating
                     to the families of victims who were just unlucky to be a part of such inhumane acts. </p>
                   <p>We accept donations for the top charities that are doing their best to stop gun violence. </p>
                   <input type="button" class="donate-button" value="Donate" />
