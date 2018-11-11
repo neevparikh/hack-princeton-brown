@@ -1,6 +1,8 @@
 from uszipcode import SearchEngine
-
-
+import pickle 
+from sklearn.neural_network import MLPClassifier as mlp
+from sklearn import preprocessing
+import numpy as np
 
 def encoded_dict (zipcode, date):
         
@@ -9,7 +11,6 @@ def encoded_dict (zipcode, date):
         #keys_to_remove.extend (['timezone', 'area_code_list', 'polygon', 'population_by_age', 'population_by_gender', 'population_by_race', 'head_of_household_by_age'])
         keys_to_include = [
             "population_density",
-            "population_by_age",
             "population_by_gender",
             "population_by_race",
             "median_household_income",
@@ -99,4 +100,20 @@ def encoded_dict (zipcode, date):
         return return_dict
 
 
-encoded_dict ('07450', '10/21/2018')
+order_dict = []
+
+def onehot(pickle_to_read, zip, date):
+
+    with open (pickle_to_read, 'rb') as picker_reader:   
+        model = pickle.load (picker_reader)
+
+    result_dict = encoded_dict (zip, date)
+    print(result_dict)
+    X = np.nan_to_num(np.array([list(result_dict.values())]))
+    print(X.shape)
+    result_prob = model.predict_proba (X)
+    return result_prob
+
+
+prob = onehot("model.pkl", "94577", "10/20/2019")
+print(prob)
