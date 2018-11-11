@@ -1,6 +1,8 @@
 from uszipcode import SearchEngine
-
-
+import pickle 
+from sklearn.neural_network import MLPClassifier as mlp
+from sklearn import preprocessing
+import numpy as np
 
 def encoded_dict (zipcode, date):
         
@@ -97,6 +99,23 @@ def encoded_dict (zipcode, date):
                 return_dict[time_features[index]] = 1
 
         return return_dict
+
+
+
+def onehot(pickle_to_read, zip, date):
+
+    with open (pickle_to_read, 'rb') as picker_reader:   
+        model = pickle.load (picker_reader)
+
+    result_dict = encoded_dict (zip, date)
+    x = np.array(result_dict.values())
+    x_scaled = preprocessing.scale (x)
+
+    result_proba = mlp.predict_proba (x_scaled)
+    return result_proba
+
+
+
 
 
 encoded_dict ('07450', '10/21/2018')
