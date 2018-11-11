@@ -113,11 +113,41 @@ def get_time_features(dates):
         df_list.append(time_features(v))
     return pd.DataFrame(df_list)
 
+def valid_years(y):
+    if y < 2016:
+        return str(y)
+    else:
+        return "2015"
+
 def create_train():
     incident_df = pd.read_csv("gun_data.csv", names=["date", "city", "state", "injured", "dead"]).sample(5000, random_state=5)
     spat_feat = get_spat_features(incident_df["city"], incident_df["state"])
     time_feat = get_time_features(incident_df["date"])
-    res_df = pd.concat([spat_feat, time_feat], axis=1)
-    res_df.to_csv("train_feat_df.csv", index=False)
+    df = pd.concat([spat_feat, time_feat], axis=1).dropna()
+
+    i = 0
+    pop_y = []
+
+    while i < len(df.index.get_values()):
+        r = df.iloc[i]
+        y = int(r['year'])
+        pop_y.append(r.loc[valid_years(y)])
+        i += 1
+    
+    df["population"] = pd.Series(pop_y)
+
+    del df["2005"]
+    del df["2006"]
+    del df["2007"]
+    del df["2008"]
+    del df["2009"]
+    del df["2010"]
+    del df["2011"]
+    del df["2012"]
+    del df["2013"]
+    del df["2014"]
+    del df["2015"]
+
+    df.to_csv("train_feat_df.csv", index=False)
 
 create_train()
