@@ -403,6 +403,10 @@ form {
     margin-bottom: 10%;
 }
 
+#search-form {
+    top: -200px;
+}
+
 input {
     position: absolute;
     top: 0;
