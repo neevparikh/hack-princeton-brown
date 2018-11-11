@@ -4,6 +4,8 @@ import json
 
 import numpy as np
 import pandas as pd
+from random import randint
+import math
 
 arr = ['Male', 'Female', 'White', 'Black Or African American', 'American Indian Or Alaskan Native', 'Asian', 'Native Hawaiian & Other Pacific Islander',
        'Other Race', 'Two Or More Races', 'Husband Wife Family Households', 'Single Guardian', 'Singles', 'Singles With Roommate', 'Households Without Kids',
@@ -15,20 +17,37 @@ arr = ['Male', 'Female', 'White', 'Black Or African American', 'American Indian 
        'day20', 'day21', 'day22', 'day23', 'day24', 'day25', 'day26', 'day27', 'day28', 'day29', 'day3', 'day30', 'day31', 'day4', 'day5', 'day6', 'day7',
        'day8', 'day9', 'year']
 
-# dat = pd.DataFrame(columns=arr)
+dat = pd.DataFrame(columns=arr)
 
 flagged = []
 
-for i in range(len(arr)):
-    col = arr[i]
-    print(col)
+with open('flagged_cols.json', 'r') as fp:
+    flagged = json.load(fp)
 
-    flag = input()
+train_feat = pd.read_csv("../scraper/train_feat_df.csv")
 
-    flagged.append({
-        'key': arr[i],
-        'flag': flag
-    })
+for demo in flagged:
+    demo["mean"] = train_feat[demo["key"]].mean()
+    demo["std"] = train_feat[demo["key"]].std()
+    demo["max"] = train_feat[demo["key"]].max()
+    demo["min"] = train_feat[demo["key"]].min()
 
-with open('flagged_cols.json', 'w+') as fp:
-    json.dump(flagged, fp)
+for i in range(5000):
+    row = []
+    for feat in flagged:
+        if feat["flag"] == "y":
+            row.append(abs(randint(
+                int(round(feat["mean"])) + int(round(feat["std"] / 2)), int(round(feat["max"])))))
+        elif feat["flag"] == "n":
+            row.append(abs(
+                randint(int(round(feat["mean"])) - int(round(feat["std"] / 2)), int(round(feat["mean"])) + int(round(feat["std"])))))
+        else:
+            row.append(abs(
+                randint(int(round(feat["min"])), int(round(feat["max"])))))
+
+    dat.loc[i] = row
+    if (i % 100 == 0):
+        print(i)
+
+print(dat)
+dat.to_csv("fake.csv", ",")
